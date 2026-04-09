@@ -16,25 +16,15 @@ function Bible() {
         ))
     ));
 
-    // const texts = await promise;
-
     promise.then((newTexts) => setText(newTexts
         .map(text => text.join('\n'))
         .join('\n<hr/>\n')
     ));
-    // myBible.getVerse('genesis 1:2').then(
-    //     (newText:string) => {setText(newText)}
-    // )
 
     return (
-        // <>
-        //     {text}
-        // </>
         <div
             dangerouslySetInnerHTML={{ 
-                __html: 
-                // text
-                DOMPurify.sanitize(text)
+                __html: DOMPurify.sanitize(text)
             }}
         />
     );

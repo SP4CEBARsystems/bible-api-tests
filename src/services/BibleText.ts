@@ -13,10 +13,8 @@ export default class BibleText {
 
     constructor() {
         this.verses = [];
-
         // Init client
         this.client = new BibleClient()
-        // this.fetch();
         this.corePromise = this.fetchCore();
     }
 
@@ -25,7 +23,7 @@ export default class BibleText {
         this.collection = await this.client.fetch_collection()
     }
     
-    async fetch() {
+    async fetchTests() {
         await this.corePromise;
 
         // Get what translations are available
