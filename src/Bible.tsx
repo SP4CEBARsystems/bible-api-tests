@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import BibleText from './services/BibleText'
 // import DOMPurify from "dompurify";
+import DOMPurify from 'isomorphic-dompurify';
 
 function Bible() {
     const [text, setText] = useState('')
@@ -32,8 +33,8 @@ function Bible() {
         <div
             dangerouslySetInnerHTML={{ 
                 __html: 
-                text
-                // DOMPurify.sanitize(text)
+                // text
+                DOMPurify.sanitize(text)
             }}
         />
     );
