@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import Bible from './Bible'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,7 +13,7 @@ function App() {
           <p>
             test
           </p>
-          
+
         </div>
         <button
           className="counter"
@@ -24,7 +25,7 @@ function App() {
 
       <div className="ticks"></div>
 
-      
+      <Bible></Bible>
 
       <div className="ticks"></div>
       <section id="spacer"></section>

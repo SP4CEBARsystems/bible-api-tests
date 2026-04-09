@@ -1,27 +1,41 @@
+import { useState } from 'react'
+import BibleText from './services/BibleText'
+// import DOMPurify from "dompurify";
 
-import {BibleClient} from '@gracious.tech/fetch-client'
+function Bible() {
+    const [text, setText] = useState('')
+    const myBible = new BibleText();
 
-// Init client
-const client = new BibleClient()
+    const versions = ['eng_kjv', 'nld_nbg', 'deu_luth', 'fra_lsg'];
+    const verses = ['genesis 1:2', 'act 1:1'];
 
-// Fetch the collection's meta data
-const collection = await client.fetch_collection()
+    const promise = Promise.all(versions.map((version)=>
+        Promise.all(verses.map((verse) =>
+            myBible.getVerse(verse, version)
+        ))
+    ));
 
-// Get what translations are available
-const translations = collection.get_translations()
+    // const texts = await promise;
 
-// Get the id of the first translation available
-const translation_id = translations[0].id
+    promise.then((newTexts) => setText(
+        newTexts.map(text => text.join('\n'))+'\n\n'
+    ));
+    // myBible.getVerse('genesis 1:2').then(
+    //     (newText:string) => {setText(newText)}
+    // )
 
-// Load local book names for the translation
-await collection.fetch_translation_extras(translation_id)
+    return (
+        // <>
+        //     {text}
+        // </>
+        <div
+            dangerouslySetInnerHTML={{ 
+                __html: 
+                text
+                // DOMPurify.sanitize(text)
+            }}
+        />
+    );
+}
 
-// Get what books are available for the translation
-// (may be whole Bible or may only be e.g. NT)
-const books = collection.get_books(translation_id)
-
-// Fetch the contents of the first book
-const book = await collection.fetch_book(translation_id, books[0].id)
-
-// Output the HTML of the first chapter of the book
-console.log(book.get_chapter(1))
+export default Bible
