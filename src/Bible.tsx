@@ -17,8 +17,9 @@ function Bible() {
 
     // const texts = await promise;
 
-    promise.then((newTexts) => setText(
-        newTexts.map(text => text.join('\n'))+'\n\n'
+    promise.then((newTexts) => setText(newTexts
+        .map(text => text.join('\n'))
+        .join('\n<hr/>\n')
     ));
     // myBible.getVerse('genesis 1:2').then(
     //     (newText:string) => {setText(newText)}
